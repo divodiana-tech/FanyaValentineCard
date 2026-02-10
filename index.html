@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>🐸Фане</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
@@ -412,6 +412,69 @@
         .screen-shake {
             animation: screenShake 0.5s ease-out;
         }
+  /* ====== МОБИЛЬНАЯ АДАПТАЦИЯ ====== */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.counter {
+    max-width: 45%;
+    font-size: 0.6rem;
+    padding: 6px 10px;
+}
+
+.multiplier-badge {
+    max-width: 45%;
+    font-size: 0.6rem;
+    padding: 6px 10px;
+}
+
+@media (max-width: 480px) {
+    .golden-title {
+        font-size: 0.55rem !important;
+        padding: 0 10px;
+    }
+
+    .wood-frame {
+        max-width: calc(100vw - 40px);
+        padding: 12px !important;
+    }
+
+    .frog-svg {
+        width: 200px !important;
+        height: 200px !important;
+    }
+
+    .hint-text {
+        font-size: 0.5rem !important;
+        padding: 0 15px;
+    }
+
+    .counter {
+        bottom: 12px;
+        right: 8px;
+        font-size: 0.5rem;
+    }
+
+    .multiplier-badge {
+        bottom: 12px;
+        left: 8px;
+        font-size: 0.5rem;
+    }
+
+    .achievement-popup {
+        top: 10px;
+        right: 8px;
+        left: 8px;
+        max-width: calc(100vw - 16px);
+    }
+
+    .achievement-popup div[style] {
+        padding: 10px 14px !important;
+        gap: 10px !important;
+    }
+}
     </style>
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen relative">
@@ -861,10 +924,10 @@ setTimeout(() => {
         const milestones = [
             { at: 50,   emoji: '🍣', text: '50 обалденно вкусных суши' },
             { at: 100,  emoji: '🖼️', text: '100 нереально потрясных скетчей' },
-            { at: 150,  emoji: '🎨', text: '150 синнабонов без изюма' },
-            { at: 200,  emoji: '🥮', text: '200 жизнерадостных цветов акрила' },
+            { at: 150,  emoji: '🥮', text: '150 синнабонов без изюма' },
+            { at: 200,  emoji: '💃', text: '200 проработанных квир-персонажей' },
             { at: 250,  emoji: '🧙‍♂️', text: 'Вжух!', isWizard: true, bonus: 10, newMultiplier: 2 },
-            { at: 300,  emoji: '💃', text: '300 проработанных квир-персонажей' },
+            { at: 325,  emoji: '🎨', text: '300 жизнерадостных цветов акрила' },
             { at: 400,  emoji: '📚', text: '400 увлекательных страниц Пратчетта' },
             { at: 500,  emoji: '🌯', text: '500 грамм сочной шаурмы' },
             { at: 600,  emoji: '🧙‍♀️', text: 'Вжух вжух!', isWizard: true, bonus: 20, newMultiplier: 3 },
