@@ -2,11 +2,15 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>🐸Фане</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'Press Start 2P', cursive;
@@ -17,6 +21,7 @@
             overflow: hidden;
             user-select: none;
             image-rendering: pixelated;
+            max-width: 100vw;
         }
 
         @keyframes gradientShift {
@@ -79,6 +84,9 @@
             position: relative;
             z-index: 10;
             animation: frameGlow 3s ease-in-out infinite alternate;
+            width: fit-content;
+            max-width: calc(100vw - 48px);
+            flex-shrink: 0;
         }
 
         @keyframes frameGlow {
@@ -119,6 +127,7 @@
             transition: transform 0.1s ease;
             position: relative;
             z-index: 10;
+            display: inline-block;
         }
 
         .frog-container:active {
@@ -134,6 +143,7 @@
             width: 180px;
             height: 180px;
             image-rendering: pixelated;
+            display: block;
         }
 
         .pulse-hint {
@@ -219,32 +229,36 @@
             color: rgba(255, 255, 255, 0.7);
         }
 
-        @keyframes achievementSlide {
-            0% { transform: translateX(120%); opacity: 0; }
-            10% { transform: translateX(0%); opacity: 1; }
-            85% { transform: translateX(0%); opacity: 1; }
-            100% { transform: translateX(120%); opacity: 0; }
-        }
-
-        @keyframes achievementSlideLong {
-            0% { transform: translateX(120%); opacity: 0; }
-            5% { transform: translateX(0%); opacity: 1; }
-            90% { transform: translateX(0%); opacity: 1; }
-            100% { transform: translateX(120%); opacity: 0; }
-        }
-
+        /* ====== АЧИВКИ — ФИКСИРОВАННАЯ АНИМАЦИЯ ====== */
         .achievement-popup {
             position: fixed;
             top: 20px;
             right: 20px;
+            left: auto;
             z-index: 300;
             animation: achievementSlide 4s ease forwards;
             pointer-events: none;
             font-family: 'Press Start 2P', cursive;
+            max-width: calc(100vw - 40px);
+            width: auto;
         }
 
         .achievement-popup.long {
             animation: achievementSlideLong 8s ease forwards;
+        }
+
+        @keyframes achievementSlide {
+            0% { transform: translateX(calc(100% + 40px)); opacity: 0; }
+            10% { transform: translateX(0); opacity: 1; }
+            85% { transform: translateX(0); opacity: 1; }
+            100% { transform: translateX(calc(100% + 40px)); opacity: 0; }
+        }
+
+        @keyframes achievementSlideLong {
+            0% { transform: translateX(calc(100% + 40px)); opacity: 0; }
+            5% { transform: translateX(0); opacity: 1; }
+            90% { transform: translateX(0); opacity: 1; }
+            100% { transform: translateX(calc(100% + 40px)); opacity: 0; }
         }
 
         .counter {
@@ -252,6 +266,7 @@
             background: rgba(109, 76, 42, 0.5);
             border: 3px solid #8b6914;
             color: #ffdf00;
+            width: auto;
         }
 
         .multiplier-badge {
@@ -260,6 +275,7 @@
             border: 3px solid #ce93d8;
             color: #f3e5f5;
             animation: multPulse 1.5s ease-in-out infinite;
+            width: auto;
         }
 
         @keyframes multPulse {
@@ -321,8 +337,8 @@
         }
 
         .final-image {
-            max-width: 70vmin;
-            max-height: 70vmin;
+            max-width: 85vmin;
+            max-height: 85vmin;
             object-fit: contain;
             image-rendering: auto;
             animation: finalImageAppear 6s ease forwards;
@@ -412,69 +428,58 @@
         .screen-shake {
             animation: screenShake 0.5s ease-out;
         }
-  /* ====== МОБИЛЬНАЯ АДАПТАЦИЯ ====== */
-html, body {
-    max-width: 100%;
-    overflow-x: hidden;
-}
 
-.counter {
-    max-width: 45%;
-    font-size: 0.6rem;
-    padding: 6px 10px;
-}
+        /* ====== МОБИЛЬНАЯ АДАПТАЦИЯ ====== */
+        html, body {
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
 
-.multiplier-badge {
-    max-width: 45%;
-    font-size: 0.6rem;
-    padding: 6px 10px;
-}
+        @media (max-width: 480px) {
+            .golden-title {
+                font-size: 0.55rem !important;
+                padding: 0 10px;
+            }
 
-@media (max-width: 480px) {
-    .golden-title {
-        font-size: 0.55rem !important;
-        padding: 0 10px;
-    }
+            .wood-frame {
+                max-width: calc(100vw - 48px) !important;
+                padding: 12px !important;
+                border-width: 8px;
+            }
 
-    .wood-frame {
-        max-width: calc(100vw - 40px);
-        padding: 12px !important;
-    }
+            .frog-svg {
+                width: 200px !important;
+                height: 200px !important;
+            }
 
-    .frog-svg {
-        width: 200px !important;
-        height: 200px !important;
-    }
+            .hint-text {
+                font-size: 0.5rem !important;
+                padding: 0 15px;
+            }
 
-    .hint-text {
-        font-size: 0.5rem !important;
-        padding: 0 15px;
-    }
+            .counter {
+                bottom: 12px !important;
+                right: 8px !important;
+                font-size: 0.5rem !important;
+                padding: 6px 10px !important;
+                max-width: 45%;
+            }
 
-    .counter {
-        bottom: 12px;
-        right: 8px;
-        font-size: 0.5rem;
-    }
+            .multiplier-badge {
+                bottom: 12px !important;
+                left: 8px !important;
+                font-size: 0.5rem !important;
+                padding: 6px 10px !important;
+                max-width: 45%;
+            }
 
-    .multiplier-badge {
-        bottom: 12px;
-        left: 8px;
-        font-size: 0.5rem;
-    }
-
-    .achievement-popup {
-        top: 10px;
-        right: 8px;
-        left: 8px;
-        max-width: calc(100vw - 16px);
-    }
-
-    .achievement-popup div[style] {
-        padding: 10px 14px !important;
-        gap: 10px !important;
-    }
-}
+            .achievement-popup {
+                top: 10px;
+                right: 10px;
+                left: auto;
+                max-width: calc(100vw - 20px);
+            }
+        }
     </style>
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen relative">
@@ -490,15 +495,7 @@ html, body {
 
     <div class="wood-frame p-3 md:p-4 flex items-center justify-center">
         <div class="frog-container pulse-hint" id="frog" onclick="onFrogClick(event)">
-            <!--
-                ============================================================
-                🎨 КАРТИНКА ЖАБКИ В РАМОЧКЕ — ЗАМЕНИ ЗДЕСЬ!
-                ============================================================
-                Замени src="frog.png" на имя своего файла.
-                Файл должен лежать рядом с index.html.
-                ============================================================
-            -->
-           <img src="frog.png" alt="Лягушка" class="frog-svg" style="width:280px; height:280px; object-fit:contain; image-rendering:auto;">
+            <img src="frog.png" alt="Лягушка" class="frog-svg" style="width:280px; height:280px; object-fit:contain; image-rendering:auto;">
         </div>
     </div>
 
@@ -549,21 +546,21 @@ html, body {
         createStars();
 
         // ====== ФОНОВЫЕ ПЛАВАЮЩИЕ ======
-function createBgHearts() {
-    const container = document.getElementById('bg-hearts');
-    const items = ['💕', '💖', '🍪', '🍙', '☕', '🎲', '✨', '⭐'];
-    for (let i = 0; i < 12; i++) {
-        const el = document.createElement('div');
-        el.className = 'bg-heart';
-        el.textContent = items[Math.floor(Math.random() * items.length)];
-        el.style.left = Math.random() * 100 + 'vw';
-        el.style.fontSize = (Math.random() * 1 + 1) + 'rem';
-        el.style.animationDuration = (Math.random() * 10 + 8) + 's';
-        el.style.animationDelay = (Math.random() * 12 + 3) + 's';
-        el.style.opacity = '0';
-        container.appendChild(el);
-    }
-}
+        function createBgHearts() {
+            const container = document.getElementById('bg-hearts');
+            const items = ['💕', '💖', '🍪', '🍙', '☕', '🎲', '✨', '⭐'];
+            for (let i = 0; i < 12; i++) {
+                const el = document.createElement('div');
+                el.className = 'bg-heart';
+                el.textContent = items[Math.floor(Math.random() * items.length)];
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.fontSize = (Math.random() * 1 + 1) + 'rem';
+                el.style.animationDuration = (Math.random() * 10 + 8) + 's';
+                el.style.animationDelay = (Math.random() * 12 + 3) + 's';
+                el.style.opacity = '0';
+                container.appendChild(el);
+            }
+        }
         createBgHearts();
 
         // ====== ЗВУК "КВА" ======
@@ -892,9 +889,9 @@ function createBgHearts() {
             const centerY = rect.top + rect.height / 2;
 
             frog.classList.remove('pulse-hint');
-setTimeout(() => {
-    if (!finalInProgress) frog.classList.add('pulse-hint');
-}, 300);
+            setTimeout(() => {
+                if (!finalInProgress) frog.classList.add('pulse-hint');
+            }, 300);
 
             if (totalClicks === 5 && !hintChanged) {
                 hintChanged = true;
@@ -904,7 +901,6 @@ setTimeout(() => {
             playKva();
             spawnHeart(centerX, centerY);
 
-            // Текст «Ква!» появляется только в ~30% кликов
             if (Math.random() < 0.3) {
                 spawnKvaText(centerX, centerY);
             }
@@ -1107,16 +1103,8 @@ setTimeout(() => {
             const overlay = document.createElement('div');
             overlay.className = 'final-image-overlay';
 
-            /*
-                ============================================================
-                🎨 ФИНАЛЬНАЯ КАРТИНКА (после 1000 сердечек) — ЗАМЕНИ ЗДЕСЬ!
-                ============================================================
-                Положи файл (например final.png) рядом с index.html
-                и поменяй src ниже на 'final.png'
-                ============================================================
-            */
             const img = document.createElement('img');
-            img.src = 'final.png';  // <--- ЗАМЕНИ НА СВОЙ ФАЙЛ
+            img.src = 'final.png';
             img.alt = '💕';
             img.className = 'final-image';
             overlay.appendChild(img);
